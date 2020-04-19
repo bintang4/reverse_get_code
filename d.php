@@ -57,12 +57,12 @@ if(preg_match("/error check your search parameter/", $gt)) exit($white."Error pl
 foreach($ex as $ll){
  $gans = "http://".$ll;
  $ec = curlGetHTTPCode($gans);
-	
-	if($ec == 200){
-	      echo $yel."[{$red}+{$yel}]{$white} ".$gans." > 200\n";
-	} elseif($ec == 0){
-	echo $yel."[{$red}?{$yel}]{$white} ".$gans." > 0\n";
-	} else {
-	      echo $yel."[{$red}*{$yel}]{$white} ".$gans." > {$ec}\n";
+ if($ec == 200){
+     echo $yel."[{$red}+{$yel}]{$white} ".$gans." > 200\n";
+ } elseif($ec == 0){
+     echo $yel."[{$red}?{$yel}]{$white} ".$gans." > 0\n";
+ } else {
+     echo $yel."[{$red}*{$yel}]{$white} ".$gans." > {$ec}\n";
 	     } }
+ echo "\n";
 ?>
