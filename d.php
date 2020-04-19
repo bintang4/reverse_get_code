@@ -49,22 +49,9 @@ $ex = explode("\n", $gt);
 foreach($ex as $ll){
  $gans = "http://".$ll;
  $ec = curlGetHTTPCode($gans);
-	
 	if($ec == 200){
 	      echo $yel."[{$red}+{$yel}]{$white} ".$gans." > 200\n";
 	} else {
 	      echo $yel."[{$red}*{$yel}]{$white} ".$gans." > {$ec}\n";
 	     } }
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
