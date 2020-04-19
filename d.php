@@ -10,8 +10,13 @@ $blue = "\033[0;34m";
 $yel = "\033[0;33m";
 $white = "\033[1;37m";
 
-
-system("clear");
+$os = php_uname();
+if(strtolower(substr(PHP_OS, 0, 3)) == "win") {
+$bersih="cls";
+} else {
+$bersih="clear";
+}
+system($bersih);
 echo $blue."Reverse Ip get HTTP Response\n";
 echo $gre."Author : root@star | Sunda Cyber Army\n\n";
 
@@ -46,11 +51,16 @@ fwrite($f, "$get");
 fclose($f);
 $gt = file_get_contents("rever.txt");
 $ex = explode("\n", $gt);
+if(preg_match("/No DNS A records found for /", $gt)) exit($white."No DNS A records found for $miaa\n");
+
 foreach($ex as $ll){
  $gans = "http://".$ll;
  $ec = curlGetHTTPCode($gans);
+	
 	if($ec == 200){
 	      echo $yel."[{$red}+{$yel}]{$white} ".$gans." > 200\n";
+	} elseif($ec == 0){
+	echo $yel."[{$red}+{$yel}]{$white} ".$gans." > 0\n";
 	} else {
 	      echo $yel."[{$red}*{$yel}]{$white} ".$gans." > {$ec}\n";
 	     } }
