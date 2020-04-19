@@ -18,11 +18,11 @@ $bersih="clear";
 }
 system($bersih);
 echo $blue."Reverse Ip get HTTP Response\n";
-echo $gre."Author : root@star | Sunda Cyber Army\n\n";
-
-
+echo $gre."Author : root@star | Sunda Cyber Army\n";
 $miaa = $argv[1];
-if(empty($argv[1]) AND !$miaa) exit("{$red}[!] Usage php {$argv[0]} anything.com\n");
+echo "Url : $white{$miaa}\n\n";
+
+if(empty($argv[1]) AND !$miaa) exit("{$red}[!] Usage php {$argv[0]} anything.com\n\n");
 $g = "http://api.hackertarget.com/reverseiplookup/?q=".$miaa;
 function test($url){
      $ch = curl_init();
@@ -51,7 +51,8 @@ fwrite($f, "$get");
 fclose($f);
 $gt = file_get_contents("rever.txt");
 $ex = explode("\n", $gt);
-if(preg_match("/No DNS A records found for /", $gt)) exit($white."No DNS A records found for $miaa\n");
+if(preg_match("/No DNS A records found for /", $gt)) exit($white."No DNS A records found for $miaa\n\n");
+if(preg_match("/error check your search parameter/", $gt)) exit($white."Error please check your website\n\n");
 
 foreach($ex as $ll){
  $gans = "http://".$ll;
