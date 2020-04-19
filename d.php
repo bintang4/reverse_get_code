@@ -60,7 +60,7 @@ foreach($ex as $ll){
 	if($ec == 200){
 	      echo $yel."[{$red}+{$yel}]{$white} ".$gans." > 200\n";
 	} elseif($ec == 0){
-	echo $yel."[{$red}+{$yel}]{$white} ".$gans." > 0\n";
+	echo $yel."[{$red}?{$yel}]{$white} ".$gans." > 0\n";
 	} else {
 	      echo $yel."[{$red}*{$yel}]{$white} ".$gans." > {$ec}\n";
 	     } }
