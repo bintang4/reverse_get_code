@@ -1,8 +1,8 @@
 <?php
 
-//If You Want Recoded it dont cjange Copyright 
+//If You Want Recoded it dont change Copyright 
 // Indonesian_People
-
+// © root@star
 
 $gre = "\033[0;32m";
 $red = "\033[0;31m";
