@@ -859,13 +859,14 @@ class grabber:
                         pass
                     else:
                         asu = str(urlku) + "|" + str(key) + "|" + str(sec) + '|' + str(region)
+                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1], asu.split('|')[2], asu.split('|')[3])
                             # print(asu)
                             objek += 1
@@ -899,13 +900,14 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
+                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split[3])
                         objek += 1
                 except:
@@ -930,13 +932,14 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
+                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
@@ -967,13 +970,14 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
+                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
@@ -1003,14 +1007,15 @@ class grabber:
                     if key == 'null' or key == '' or key == '""' or sec == '':
                         pass
                     else:
+                        asu1 = clean(key + "|" + sec + '|' + region)
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
@@ -1041,13 +1046,14 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
+                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
@@ -1103,13 +1109,14 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
+                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
@@ -1132,13 +1139,14 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
+                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
@@ -1161,13 +1169,14 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
+                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
@@ -1190,13 +1199,14 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
+                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu + '\n')
+                                ppp.write(asu1 + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
