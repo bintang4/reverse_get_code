@@ -2103,38 +2103,26 @@ def ceker_twilio(f_url, f_sid, f_token):
     try:
         f_sid = str(f_sid)
         f_token = str(f_token)
+        #account = client.api.accounts(f_sid).fetch()
+        
         tes123 = requests.get('https://api.twilio.com/2010-04-01/Accounts/'+f_sid+'/Balance.json', auth=(f_sid,f_token)).json()
+        
         '''
         cll = Client(f_sid, f_token)
         acc = cll.api.accounts(f_sid).fetch()
         balance = acc['subresource_uris']['balance']
+        typee = acc.type
         '''
         balance = str(tes123['balance'])+' '+str(tes123['currency'])
         cl = Client(f_sid,f_token)
+        acc = cl.api.accounts(f_sid).fetch()
+        typee = acc.type
         num = cl.incoming_phone_numbers.list(limit=20)
         dump_number = []
         for xxx in num:
             dump_number.append(xxx.phone_number)
         from_number = str(random.choice(dump_number))
-        try:
-            tes_send = cl.messages.create(
-                body='TES TWIlIO APIKEY by RIDHO\nSID={}\nTOKEN={}\nFROM_NUMBER={}'.format(f_sid,f_token,from_number),
-                from_=from_number,
-                to= from_number[:len(from_number)-2]+'00'
-            )
-        except Exception as ppppppp:
-            status = str(ppppppp)
-            tes_send = ''
-        try:
-            if tes_send.status == 'die':
-                status = 'Cant send sms'
-            elif status == 'sent':
-                status = 'LIVE'
-            else:
-                status = 'Cant send sms'
-        except:
-            status = 'Cant send sms'
-        open('Result/twilio_live.txt', 'a').write('-'*30+'\nSID={}\nTOKEN={}\nBALANCE={}\nFROM_NUMBER={}\nSTATUS={}\n'.format(f_sid,f_token,balance,from_number,status))
+        open('Result/twilio_live.txt', 'a').write('-'*30+'\nSID={}\nTOKEN={}\nBALANCE={}\nFROM_NUMBER={}\nTYPE={}\n'.format(f_sid,f_token,balance,from_number,acc.type))
     except:
         pass
 
