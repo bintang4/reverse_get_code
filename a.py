@@ -142,6 +142,7 @@ Thread: %s
 ''' % (cpu_count, thrit))
     try:
         list_url = open(input('Url ? ')).read().splitlines()
+        threed = input('Thread: ')
         folder = input('Save Folder ? ')
         if folder == '':
             folder = 'Results'
@@ -150,13 +151,12 @@ Thread: %s
     except FileNotFoundError:
         print('File not found')
         sys.exit()
-    pool = mp.Pool(thrit)
+    pool = mp.Pool(int(threed))
     pool.map_async(partial(start_, foldersave=folder), list_url)
     pool.close()
     pool.join()
     print('\nDone')
-    sys.exit(input('Press Enter to exit...'))
-
+    
 
 if __name__ == '__main__':
     main_()
